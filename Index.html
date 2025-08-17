@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="auto" data-lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Marek Ludvík — IT Profile</title>
+  <meta name="description" content="Personal IT profile of Marek Ludvík: systems administration, Intune, AD, security, automation." />
+  <style>
+    /* -------- Base / Reset -------- */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { height: 100%; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    body::before{content:"";position:fixed;inset:-10% -10% auto -10%;height:46vh;z-index:-1;pointer-events:none;filter:blur(30px) saturate(120%);
+      background:
+        radial-gradient(40% 60% at 20% 20%, color-mix(in oklab, var(--brand) 22%, transparent), transparent 60%),
+        radial-gradient(40% 60% at 80% 10%, color-mix(in oklab, var(--accent) 16%, transparent), transparent 60%);
+    }
+
+    /* -------- Theme -------- */
+    :root {
+      --bg: #0b0c0f;
+      --panel: #12141a;
+      --muted: #a9b0bc;
+      --text: #e6eaf2;
+      --brand: #5aa9ff;
+      --accent: #79ffa8;
+      --border: #1e2230;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f8fafc;
+        --panel: #ffffff;
+        --muted: #586174;
+        --text: #0b1220;
+        --brand: #0f62fe;
+        --accent: #12805c;
+        --border: #e5e7eb;
+        --shadow: 0 10px 30px rgba(2,6,23,.08);
+      }
+    }
+
+    [data-theme="dark"] { --bg:#0b0c0f; --panel:#12141a; --muted:#a9b0bc; --text:#e6eaf2; --brand:#5aa9ff; --accent:#79ffa8; --border:#1e2230; --shadow:0 10px 30px rgba(0,0,0,.35);} 
+    [data-theme="light"] { --bg:#f8fafc; --panel:#fff; --muted:#586174; --text:#0b1220; --brand:#0f62fe; --accent:#12805c; --border:#e5e7eb; --shadow: 0 10px 30px rgba(2,6,23,.08);} 
+
+    /* -------- Layout -------- */
+    .container { width: min(1100px, 92vw); margin-inline: auto; }
+    header.nav {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: blur(8px);
+      background: color-mix(in oklab, var(--bg) 84%, transparent);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner { display:flex; align-items:center; justify-content:space-between; gap: 1rem; padding: .8rem 0; }
+    .brand { display:flex; align-items:center; gap:.65rem; font-weight:800; letter-spacing:.3px; }
+    .logo-ml{ inline-size:42px; block-size:42px; }
+    .brand-name{ font-size: clamp(1.2rem, 1rem + .8vw, 1.6rem); font-weight:900; position:relative; color: var(--text); text-shadow: 0 1px 0 rgba(255,255,255,.25), 0 2px 4px rgba(0,0,0,.45), 0 8px 24px rgba(0,0,0,.35); }
+    .brand-name::before{ content:""; position:absolute; inset:-8px -14px; border-radius:14px; background: radial-gradient(120% 70% at 40% 50%, rgba(255,255,255,.22), transparent 60%); filter: blur(10px); z-index:-1; }
+    .avatar {
+      inline-size: 36px; block-size: 36px; border-radius: 50%;
+      background: radial-gradient(120% 120% at 0% 0%, var(--brand), var(--accent));
+      color:#fff; display:grid; place-items:center; font-weight:800; font-size:.9rem;
+      box-shadow: var(--shadow);
+    }
+    nav a { color: var(--text); text-decoration:none; opacity:.85; padding:.4rem .6rem; border-radius:.6rem; }
+    nav a:hover, nav a:focus { background: var(--panel); border:1px solid var(--border); opacity:1; }
+    .controls { display:flex; align-items:center; gap:.5rem; }
+    .btn { border:1px solid var(--border); background: var(--panel); color: var(--text); padding:.45rem .75rem; border-radius:.7rem; cursor:pointer; }
+
+    /* Active language indicator */
+    .btn.active, .btn[aria-pressed='true'] { border-color: var(--brand); box-shadow: inset 0 0 0 2px color-mix(in oklab, var(--brand) 35%, transparent); }
+
+    /* -------- Hero -------- */
+    .hero { padding: clamp(2rem, 6vw, 4rem) 0; position: relative; overflow: hidden; }
+    .hero-grid { display:grid; grid-template-columns: 1fr 1.2fr; gap:clamp(1rem, 3vw, 2rem); align-items:center; }
+    @media (max-width: 860px) { .hero-grid { grid-template-columns: 1fr; } }
+    h1 { font-size: clamp(1.8rem, 1.2rem + 2.8vw, 3rem); line-height:1.15; margin:.2rem 0 1rem; }
+    .lead { font-size: clamp(1rem, .95rem + .4vw, 1.15rem); color: var(--muted); }
+    .pill {
+      display:inline-flex; align-items:center; gap:.5rem; padding:.35rem .65rem; border:1px solid var(--border); border-radius:999px; background:var(--panel); font-size:.9rem; color: var(--muted);
+    }
+    .hero-card { background: var(--panel); border:1px solid var(--border); border-radius: 1rem; padding:1rem; box-shadow: var(--shadow); }
+    .quicklist { margin:.2rem 0 0; padding-left: 1.1rem; }
+    .quicklist li { margin:.25rem 0; }
+
+    /* Hero photo (left) */
+    .hero-photo{ display:block; border-radius: 18px; overflow:hidden; box-shadow: var(--shadow); border:1px solid var(--border); max-height: 520px; aspect-ratio: 400 / 520; }
+    .hero-photo.noimg{ display:grid; place-items:center; background: linear-gradient(135deg, color-mix(in oklab, var(--panel) 96%, transparent), color-mix(in oklab, var(--panel) 92%, transparent)); color: var(--muted); }
+    .hero-photo.noimg::after{ content: 'Portrait placeholder'; font-size: .95rem; opacity:.9; }
+    .hero-photo img{ width:100%; height:100%; object-fit:cover; filter: grayscale(20%); display:block; }
+    .hero-photo img{ width:100%; height:100%; object-fit:cover; filter: grayscale(20%); display:block; }
+
+    /* I18N: language toggling */
+    .i18n.cs{display:none}
+    [data-lang="cs"] .i18n.en{display:none}
+    [data-lang="cs"] .i18n.cs{display:inline}
+
+    /* -------- Sections -------- */
+    section { padding: clamp(2rem, 5vw, 3rem) 0; scroll-margin-top: 72px; }
+    .section-title { font-size: clamp(1.2rem, 1rem + .9vw, 1.8rem); margin:0 0 1rem; }
+    .grid { display:grid; gap: 1rem; }
+    .grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width: 900px) { .grid.cols-3 { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 640px) { .grid.cols-3, .grid.cols-2 { grid-template-columns: 1fr; } }
+
+    .card { background: var(--panel); border:1px solid var(--border); border-radius: 1rem; padding: 1rem; box-shadow: var(--shadow); }
+    .card h3 { margin:.2rem 0 .7rem; font-size: 1.05rem; }
+    .tags { display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.6rem; }
+    .tag { padding:.25rem .55rem; border:1px solid var(--border); border-radius:.6rem; font-size:.85rem; color: var(--muted); }
+
+    /* -------- Experience list with collapse -------- */
+    details { border: 1px dashed var(--border); border-radius: .8rem; padding: .8rem 1rem; background: color-mix(in oklab, var(--panel) 94%, transparent); }
+    details summary { cursor: pointer; list-style: none; font-weight: 600; }
+    details[open] { border-style: solid; }
+    ul.bullets { padding-left: 1.1rem; margin: .6rem 0 0; }
+    ul.bullets li { margin:.35rem 0; }
+
+    /* -------- Contact / Socials -------- */
+    .socials { display:flex; gap:.75rem; align-items:center; flex-wrap:wrap; }
+    .iconlink { display:inline-flex; align-items:center; gap:.5rem; padding:.5rem .7rem; border:1px solid var(--border); border-radius:.8rem; background: var(--panel); text-decoration:none; color:var(--text); }
+    .iconlink:hover { transform: translateY(-1px); }
+    .icon { inline-size: 20px; block-size: 20px; display:inline-block; }
+    .help { font-size:.85rem; color: var(--muted); }
+
+    footer { padding: 2rem 0 3rem; color: var(--muted); font-size:.9rem; border-top:1px solid var(--border); } { padding: 2rem 0 3rem; color: var(--muted); font-size:.9rem; border-top:1px solid var(--border); }
+
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <div class="brand">
+        <span class="brand-name">Marek&nbsp;Ludvík</span>
+      </div>
+      <nav aria-label="Primary">
+        <a href="#about"><span class="i18n en">About</span><span class="i18n cs">O mně</span></a>
+        <a href="#skills"><span class="i18n en">Skills</span><span class="i18n cs">Dovednosti</span></a>
+        <a href="#experience"><span class="i18n en">Highlights</span><span class="i18n cs">Hlavní body</span></a>
+        <a href="#projects"><span class="i18n en">Projects</span><span class="i18n cs">Projekty</span></a>
+        <a href="#certs"><span class="i18n en">Certifications</span><span class="i18n cs">Certifikace</span></a>
+        <a href="#contact"><span class="i18n en">Contact</span><span class="i18n cs">Kontakt</span></a>
+      </nav>
+      <div class="controls">
+        <button class="btn" id="langEn" aria-label="Switch to English">EN</button>
+        <button class="btn" id="langCs" aria-label="Přepnout do češtiny">CZ</button>
+        <button class="btn" id="themeToggle" aria-label="Toggle theme">🌓</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero / Intro -->
+    <section class="hero" id="about">
+      <div class="container hero-grid">
+        <figure class="hero-photo"><img src="portrait.jpg" alt="Marek Ludvík" loading="eager" width="400" height="520" onerror="this.closest('figure').classList.add('noimg'); this.remove();"></figure>
+        <div>
+          <span class="pill"><span class="i18n en">Security‑first • IT Ops</span><span class="i18n cs">Bezpečnost především • IT provoz</span></span>
+          <h1><span class="i18n en">Hi, I'm Marek. I design, secure, and streamline IT environments.</span><span class="i18n cs">Ahoj, jsem Marek. Navrhuji, zabezpečuji a zjednodušuji IT prostředí.</span></h1>
+          <p class="lead"><span class="i18n en">I keep the vibe light but delivery serious. I modernise processes, remove friction for users, and keep the estate secure. I write where it matters, automate what repeats, and explain things in plain language.</span><span class="i18n cs">Mám rád lehkost, ale dodání beru vážně. Modernizuji procesy, ubírám tření uživatelům a držím prostředí bezpečné. Píšu tam, kde to dává smysl, automatizuji opakující se věci a vysvětluji srozumitelně.</span></p>
+          <p class="lead" style="margin-top:.8rem;"><span class="i18n en">I've worked as a <strong>Global Administrator</strong> across two tenants.</span><span class="i18n cs">Mám zkušenost s rolí <strong>Global Administrator</strong> ve dvou tenantech.</span></p>
+          <ul class="bullets" style="margin-top:.6rem;">
+            <li><span class="i18n en">Secure by default: hardening, patching, identity‑first controls.</span><span class="i18n cs">Bezpečné ve výchozím stavu: hardening, patchování, identity‑first přístupy.</span></li>
+            <li><span class="i18n en">Operational efficiency: clear processes and automation where it counts.</span><span class="i18n cs">Provozní efektivita: srozumitelné procesy a automatizace tam, kde dává smysl.</span></li>
+            <li><span class="i18n en">Human‑friendly support: explain issues plainly and keep people productive.</span><span class="i18n cs">Lidská podpora: srozumitelně vysvětlit a udržet lidi produktivní.</span></li>
+          </ul>
+        </div>
+        
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills">
+      <div class="container">
+        <h2 class="section-title"><span class="i18n en">Skills & Tools</span><span class="i18n cs">Dovednosti & Nástroje</span></h2>
+        <p class="lead"><span class="i18n en">A snapshot of the platforms I use to ship stable, secure environments.</span><span class="i18n cs">Krátký přehled platforem, se kterými dodávám stabilní a bezpečná prostředí.</span></p>
+        <div class="grid cols-3">
+          <div class="card">
+            <h3>Microsoft 365 & Cloud</h3>
+            <div class="tags">
+              <span class="tag">Intune (MDM/MAM)</span>
+              <span class="tag">Entra ID</span>
+              <span class="tag">Azure</span>
+              <span class="tag">Defender/MDE</span>
+              <span class="tag">Exchange (on‑prem/Online)</span>
+              <span class="tag">SharePoint</span>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Infrastructure</h3>
+            <div class="tags">
+              <span class="tag">Directory & network services (AD/DNS/DHCP)</span>
+              <span class="tag">GPO management</span>
+              <span class="tag">SCCM / MECM</span>
+              <span class="tag">VMware</span>
+              <span class="tag">Hyper‑V</span>
+              <span class="tag">Citrix</span>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Security & Connectivity</h3>
+            <div class="tags">
+              <span class="tag">Secure web access (Zscaler)</span>
+              <span class="tag">SonicWall firewalls</span>
+              <span class="tag">Secure remote access (Cisco VPN)</span>
+              <span class="tag">Policy & proxy governance</span>
+              <span class="tag">Incident response playbooks</span>
+              <span class="tag">Phishing triage & coaching</span>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Automation & Workflow</h3>
+            <div class="tags">
+              <span class="tag">PowerShell automation</span>
+              <span class="tag">Command‑line (CMD)</span>
+              <span class="tag">Process design & docs</span>
+              <span class="tag">On/Off‑boarding workflows</span>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Tools</h3>
+            <div class="tags">
+              <span class="tag">ServiceNow (ITSM)</span>
+              <span class="tag">JIRA (projects)</span>
+              <span class="tag">Easy Redmine</span>
+              <span class="tag">TeamViewer Tensor (remote)</span>
+              <span class="tag">ExtremeCloud AP (Wi‑Fi)</span>
+              <span class="tag">MobileIron (MDM)</span>
+              <span class="tag">Helios (assets)</span>
+              <span class="tag">ESET management</span>
+              <span class="tag">AutoAD tooling</span>
+            </div>
+          </div>
+          <div class="card">
+            <h3>User Experience & Support</h3>
+            <div class="tags">
+              <span class="tag">Windows 10/11 experience</span>
+              <span class="tag">Legacy Windows lifecycle</span>
+              <span class="tag">Global support (EMEA/AMER)</span>
+              <span class="tag">Identity & access management</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience / Highlights -->
+    <section id="experience">
+      <div class="container">
+        <h2 class="section-title"><span class="i18n en">Highlights</span><span class="i18n cs">Hlavní body</span></h2>
+        <div class="grid cols-2">
+          <div class="card">
+            <h3>Security & Operations</h3>
+            <ul class="bullets">
+              <li>Security incident analysis & response</li>
+              <li>Handling phishing email reports & incidents</li>
+              <li>MDE administration & vulnerability management</li>
+              <li>Zscaler policy and proxy management</li>
+              <li>L3 support across proxy & global SecOps queues</li>
+              <li>Browser security patching & configuration</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Systems & Projects</h3>
+            <ul class="bullets">
+              <li>Project lead: SCCM → Intune migration</li>
+              <li>Creation & improvement of IT processes</li>
+              <li>Managing virtual environments (Hyper‑V, VMware)</li>
+              <li>GPO management & AD administration</li>
+              <li>ServiceNow ticketing and cooperation with Security Architects</li>
+            </ul>
+          </div>
+        </div>
+
+        <details style="margin-top:1rem;">
+          <summary><span class="i18n en">More details</span><span class="i18n cs">Více podrobností</span></summary>
+          <ul class="bullets">
+            <li>Administering Windows Server, MS SQL, AD, DNS, DHCP</li>
+            <li>Managing M365 (Exchange, Azure, Entra, Intune, Defender, SharePoint)</li>
+            <li>Citrix administration & cybersecurity exposure</li>
+            <li>Cisco switch basics; VPN & LAN troubleshooting (CiscoVPN)</li>
+            <li>SCCM deployments; station admin</li>
+            <li>ExtremeCloud AP management; Global VPN client</li>
+            <li>O365, proxy & ESET administration</li>
+            <li>Documentation & process creation; endpoint HW/SW management</li>
+            <li>Phone/chat support for EMEA/AMER regions</li>
+            <li>O365, MS Teams, Skype, Lotus Notes; Exchange on‑prem; Avaya; MobileIron</li>
+            <li>CMD, TCP/IP; Mainframes (ARIBA, ORACLE ESSO)</li>
+          </ul>
+        </details>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects">
+      <div class="container">
+        <h2 class="section-title"><span class="i18n en">Projects</span><span class="i18n cs">Projekty</span></h2>
+        <div class="grid cols-2">
+          <div class="card">
+            <h3><span class="i18n en">Home Lab</span><span class="i18n cs">Domácí lab</span></h3>
+            <p class="lead"><span class="i18n en">In my free time I build and maintain a home IT lab. I use Hyper‑V to virtualize six machines:</span><span class="i18n cs">Ve volném čase se věnuji domácímu IT labu. Využívám Hyper‑V pro virtualizaci šesti strojů:</span></p>
+            <ul class="bullets">
+              <li>4× Windows Server 2025 (2× DC, ADC, Jump)</li>
+              <li>2× Ubuntu 25 (FW, Docker)</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3><span class="i18n en">More projects coming</span><span class="i18n cs">Další projekty brzy</span></h3>
+            <p><span class="i18n en">Write‑ups on SCCM → Intune migration and onboarding redesign are in progress.</span><span class="i18n cs">Chystám detailní popisy migrace SCCM → Intune a redesignu onboardingu.</span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Certifications -->
+    <section id="certs">
+      <div class="container">
+        <h2 class="section-title"><span class="i18n en">Certifications</span><span class="i18n cs">Certifikace</span></h2>
+        <div class="card">
+          <p><span class="i18n en">Currently building certifications in cloud and cybersecurity. Updates coming soon.</span><span class="i18n cs">Aktuálně pracuji na certifikacích v oblasti cloudu a bezpečnosti. Aktualizace již brzy.</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <div class="container">
+        <h2 class="section-title"><span class="i18n en">Contact</span><span class="i18n cs">Kontakt</span></h2>
+        <div class="socials">
+          <a class="iconlink" id="linkedinLink" href="#" target="_blank" rel="noopener" aria-label="LinkedIn profile">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0 8h5v16H0V8zm7.5 0h4.8v2.2h.1c.7-1.3 2.4-2.7 4.9-2.7 5.3 0 6.3 3.5 6.3 8v8.5h-5V16c0-2.2 0-5-3-5s-3.5 2.3-3.5 4.8V24h-5V8z"/></svg>
+            <span>LinkedIn</span>
+          </a>
+          <a class="iconlink" id="emailLink" href="mailto:hello@yourdomain.tld" aria-label="Email Marek">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 13.065L0 6.75V18a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V6.75l-12 6.315zm11.985-9.78A2 2 0 0 0 22 2H2a2 2 0 0 0-1.985 1.285L12 10.935l11.985-7.65z"/></svg>
+            <span>Email</span>
+          </a>
+        </div>
+        <p class="lead" style="margin-top:1rem; color:var(--muted);"><span class="i18n en">Replace the placeholders with your real links. LinkedIn can be set below.</span><span class="i18n cs">Nahraďte zástupné odkazy svými reálnými. LinkedIn můžete nastavit níže.</span></p>
+        <div class="card" style="margin-top:1rem;">
+          <label for="liuser"><span class="i18n en">LinkedIn username (optional – builds URL like https://www.linkedin.com/in/<em>username</em>)</span><span class="i18n cs">Uživatelské jméno na LinkedIn (volitelné – vytvoří odkaz ve tvaru https://www.linkedin.com/in/<em>username</em>)</span></label>
+          <div style="display:flex; gap:.6rem; margin-top:.4rem;">
+            <input id="liuser" type="text" placeholder="your-linkedin-username" minlength="3" maxlength="30" pattern="[A-Za-z][A-Za-z0-9-]{2,29}" title="Letters, numbers, hyphens; start with a letter; 3–30 chars" style="flex:1; padding:.6rem .7rem; border:1px solid var(--border); border-radius:.6rem; background:var(--panel); color:var(--text);" />
+            <button class="btn" id="saveLi" disabled>Set link</button>
+          </div>
+          <div class="help" id="lihelp" style="margin-top:.35rem; color:var(--muted); font-size:.9rem;">Paste your username or full LinkedIn URL.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap;">
+        <span>© <span id="year"></span> Marek Ludvík — All rights reserved.</span>
+        <span style="color:var(--muted)"><span class="i18n en">Made with clean HTML & CSS.</span><span class="i18n cs">Vytvořeno čistým HTML & CSS.</span></span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Theme toggle with persistence
+    const root = document.documentElement;
+    const toggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light' || savedTheme === 'dark') {
+      root.setAttribute('data-theme', savedTheme);
+    } else {
+      root.setAttribute('data-theme', 'auto');
+    }
+    toggle.addEventListener('click', () => {
+      const current = root.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+
+    // Language toggle with persistence
+    const savedLang = localStorage.getItem('lang') || (navigator.language && navigator.language.startsWith('cs') ? 'cs' : 'en');
+    function setLang(lang){
+      root.setAttribute('data-lang', lang);
+      document.documentElement.lang = lang;
+      localStorage.setItem('lang', lang);
+      const enBtn = document.getElementById('langEn');
+      const csBtn = document.getElementById('langCs');
+      enBtn.classList.toggle('active', lang === 'en');
+      csBtn.classList.toggle('active', lang === 'cs');
+      enBtn.setAttribute('aria-pressed', String(lang==='en'));
+      csBtn.setAttribute('aria-pressed', String(lang==='cs'));
+    }
+    setLang(savedLang);
+    document.getElementById('langEn').addEventListener('click', ()=> setLang('en'));
+    document.getElementById('langCs').addEventListener('click', ()=> setLang('cs'));
+
+    // LinkedIn username builder with validation
+    const input = document.getElementById('liuser');
+    const save = document.getElementById('saveLi');
+    const li = document.getElementById('linkedinLink');
+    const lihelp = document.getElementById('lihelp');
+
+    function normalizeLinkedIn(v){
+      // allow pasting full URL; keep the last path segment after /in/
+      v = v.trim();
+      v = v.replace(/^https?:\/\/(www\.)?linkedin\.com\/in\//i, '');
+      v = v.replace(/\/?(#.*)?$/, '');
+      return v;
+    }
+    function isValidLinkedIn(v){ return /^[A-Za-z][A-Za-z0-9-]{2,29}$/.test(v); }
+
+    const storedLi = localStorage.getItem('liuser');
+    if (storedLi) { input.value = storedLi; li.href = `https://www.linkedin.com/in/${storedLi}`; save.disabled = false; }
+
+    input.addEventListener('input', () => {
+      const raw = normalizeLinkedIn(input.value);
+      const ok = isValidLinkedIn(raw);
+      save.disabled = !ok;
+      lihelp.textContent = ok ? 'Looks good.' : 'Allowed: letters, numbers, hyphens; start with a letter (3–30 chars). You can paste a full URL too.';
+    });
+
+    save.addEventListener('click', () => {
+      let v = normalizeLinkedIn(input.value);
+      if (!isValidLinkedIn(v)) return;
+      localStorage.setItem('liuser', v);
+      li.href = `https://www.linkedin.com/in/${v}`;
+      li.setAttribute('aria-label', `LinkedIn profile: ${v}`);
+      save.textContent = 'Saved';
+      setTimeout(()=> save.textContent='Set link', 1200);
+    });
+  </script>
+</body>
+</html>
