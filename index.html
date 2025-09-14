@@ -159,7 +159,7 @@
     <!-- Hero / Intro -->
     <section class="hero" id="about">
       <div class="container hero-grid">
-        <figure class="hero-photo"><img src="portrait.jpg" alt="Marek Ludvík" loading="eager" width="400" height="520" onerror="this.closest('figure').classList.add('noimg'); this.remove();"></figure>
+        <figure class="hero-photo"><img src="images/portrait.jpg" alt="Marek Ludvík" loading="eager" width="400" height="520" onerror="this.closest('figure').classList.add('noimg'); this.remove();"></figure>
         <div>
           <span class="pill"><span class="i18n en">Security-first • IT Ops</span><span class="i18n cs">Bezpečnost především • IT provoz</span></span>
           <h1><span class="i18n en">Hi, I'm Marek. I design, secure, and streamline IT environments.</span><span class="i18n cs">Ahoj, jsem Marek. Navrhuji, zabezpečuji a zjednodušuji IT prostředí.</span></h1>
@@ -368,15 +368,15 @@
         <!-- Gallery (use PNGs with transparent bg). JPGs will blend thanks to CSS fallback. -->
         <div class="pc-gallery" aria-label="Example builds">
           <figure class="pc-shot">
-            <img src="pc_assets/pc-gaming.png" alt="RGB gaming build PC" width="720" height="640" loading="lazy" decoding="async" fetchpriority="low">
+            <img src="pc_assets/gaming.jpg" alt="RGB gaming build PC" width="720" height="640" loading="lazy" decoding="async" fetchpriority="low">
             <figcaption><span class="i18n en">Gaming build</span><span class="i18n cs">Herní sestava</span></figcaption>
           </figure>
           <figure class="pc-shot">
-            <img src="pc_assets/pc-classic.png" alt="Classic home PC" width="720" height="640" loading="lazy" decoding="async" fetchpriority="low">
+            <img src="pc_assets/classic.jpg" alt="Classic home PC" width="720" height="640" loading="lazy" decoding="async" fetchpriority="low">
             <figcaption><span class="i18n en">Classic home</span><span class="i18n cs">Domácí sestava</span></figcaption>
           </figure>
           <figure class="pc-shot">
-            <img src="pc_assets/pc-water.png" alt="Water-cooled PC" width="720" height="640" loading="lazy" decoding="async" fetchpriority="low">
+            <img src="pc_assets/vodnik.jpg" alt="Water-cooled PC" width="720" height="640" loading="lazy" decoding="async" fetchpriority="low">
             <figcaption><span class="i18n en">Water-cooled</span><span class="i18n cs">Vodní chlazení</span></figcaption>
           </figure>
         </div>
@@ -397,142 +397,3 @@
           </div>
           <div class="fcol">
             <label for="rqEmail"><span class="i18n en">Email</span><span class="i18n cs">E-mail</span></label>
-            <input id="rqEmail" name="email" type="email" required class="input" />
-          </div>
-          <div class="fcol">
-            <label for="rqPhone"><span class="i18n en">Phone</span><span class="i18n cs">Telefon</span></label>
-            <input id="rqPhone" name="phone" type="tel" placeholder="+420 …" class="input" />
-          </div>
-          <div class="fcol">
-            <label for="rqType"><span class="i18n en">Type</span><span class="i18n cs">Typ</span></label>
-            <select id="rqType" name="type" class="input">
-              <option>Consultation / Konzultace</option>
-              <option>Build / Stavba</option>
-            </select>
-          </div>
-          <div class="fcol">
-            <label for="rqBudget"><span class="i18n en">Budget</span><span class="i18n cs">Rozpočet</span></label>
-            <select id="rqBudget" name="budget" class="input">
-              <option>Not specified / Neuvedeno</option>
-              <option>< 20k CZK</option>
-              <option>20–35k CZK</option>
-              <option>35–60k CZK</option>
-              <option>60k+ CZK</option>
-            </select>
-          </div>
-          <div class="fcol fspan2">
-            <label for="rqMsg"><span class="i18n en">Request / Notes</span><span class="i18n cs">Poptávka / Poznámky</span></label>
-            <textarea id="rqMsg" name="message" required class="input" placeholder="CPU, GPU, uses, size, look… / požadavky"></textarea>
-          </div>
-          <div class="fcol fspan2" style="display:flex; gap:.6rem; justify-content:flex-end;">
-            <button type="button" class="btn" data-close><span class="i18n en">Cancel</span><span class="i18n cs">Zavřít</span></button>
-            <button type="submit" class="btn"><span class="i18n en">Send</span><span class="i18n cs">Odeslat</span></button>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <!-- Contact -->
-    <section id="contact">
-      <div class="container">
-        <h2 class="section-title"><span class="i18n en">Contact</span><span class="i18n cs">Kontakt</span></h2>
-        <div class="socials">
-          <a class="iconlink" id="linkedinLink" href="https://www.linkedin.com/in/marek-ludv%C3%ADk-b60441184/" target="_blank" rel="noopener" aria-label="LinkedIn profile">
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0 8h5v16H0V8zm7.5 0h4.8v2.2h.1c.7-1.3 2.4-2.7 4.9-2.7 5.3 0 6.3 3.5 6.3 8v8.5h-5V16c0-2.2 0-5-3-5s-3.5 2.3-3.5 4.8V24h-5V8z"/></svg>
-            <span>LinkedIn</span>
-          </a>
-          <a class="iconlink" id="emailLink" href="mailto:hello@yourdomain.tld" aria-label="Email Marek">
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 13.065L0 6.75V18a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V6.75l-12 6.315zm11.985-9.78A2 2 0 0 0 22 2H2a2 2 0 0 0-1.985 1.285L12 10.935l11.985-7.65z"/></svg>
-            <span>Email</span>
-          </a>
-        </div>
-        <p class="lead" style="margin-top:1rem; color:var(--muted);"><span class="i18n en">Reach me via LinkedIn or email.</span><span class="i18n cs">Kontaktujte mě přes LinkedIn nebo e-mail.</span></p>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container">
-      <div style="display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap;">
-        <span>© <span id="year"></span> Marek Ludvík — All rights reserved.</span>
-        <span style="color:var(--muted)"><span class="i18n en">Made with clean HTML & CSS.</span><span class="i18n cs">Vytvořeno čistým HTML & CSS.</span></span>
-      </div>
-    </div>
-  </footer>
-
-  <script>
-    // Year
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Theme toggle with persistence
-    const root = document.documentElement;
-    const toggle = document.getElementById('themeToggle');
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'light' || savedTheme === 'dark') {
-      root.setAttribute('data-theme', savedTheme);
-    } else {
-      root.setAttribute('data-theme', 'auto');
-    }
-    toggle.addEventListener('click', () => {
-      const current = root.getAttribute('data-theme');
-      const next = current === 'dark' ? 'light' : 'dark';
-      root.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
-    });
-
-    // Language toggle with persistence
-    const savedLang = localStorage.getItem('lang') || (navigator.language && navigator.language.startsWith('cs') ? 'cs' : 'en');
-    function setLang(lang){
-      root.setAttribute('data-lang', lang);
-      document.documentElement.lang = lang;
-      localStorage.setItem('lang', lang);
-      const enBtn = document.getElementById('langEn');
-      const csBtn = document.getElementById('langCs');
-      enBtn.classList.toggle('active', lang === 'en');
-      csBtn.classList.toggle('active', lang === 'cs');
-      enBtn.setAttribute('aria-pressed', String(lang==='en'));
-      csBtn.setAttribute('aria-pressed', String(lang==='cs'));
-    }
-    setLang(savedLang);
-    document.getElementById('langEn').addEventListener('click', ()=> setLang('en'));
-    document.getElementById('langCs').addEventListener('click', ()=> setLang('cs'));
-
-    // Modal open/close
-    const modal = document.getElementById('requestModal');
-    function openModal(){ modal.classList.add('show'); modal.setAttribute('aria-hidden','false'); document.getElementById('rqName').focus(); }
-    function closeModal(){ modal.classList.remove('show'); modal.setAttribute('aria-hidden','true'); }
-    document.querySelectorAll('[data-open="requestModal"]').forEach(btn=>btn.addEventListener('click', openModal));
-    modal.addEventListener('click', (e)=>{ if(e.target === modal || e.target.hasAttribute('data-close')) closeModal(); });
-    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && modal.classList.contains('show')) closeModal(); });
-
-    // Let gallery images open the modal too (nice UX)
-    document.querySelectorAll('.pc-shot img').forEach(img => {
-      img.style.cursor = 'pointer';
-      img.addEventListener('click', openModal);
-    });
-
-    // Mailto submit (uses the Contact email link)
-    const rqForm = document.getElementById('requestForm');
-    rqForm.addEventListener('submit', (e)=>{
-      e.preventDefault();
-      const fd = new FormData(rqForm);
-      const toHref = document.getElementById('emailLink').getAttribute('href')||'mailto:hello@yourdomain.tld';
-      const to = toHref.replace('mailto:','');
-      const type = fd.get('type');
-      const subject = `[Request] ${type} | Budget ${fd.get('budget')}`;
-      const body = `Name: ${fd.get('name')}
-Email: ${fd.get('email')}
-Phone: ${fd.get('phone')||'-'}
-Type: ${type}
-Budget: ${fd.get('budget')}
-
-Details:
-${fd.get('message')}`;
-      const link = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      window.location.href = link;
-      closeModal();
-      rqForm.reset();
-    });
-  </script>
-</body>
-</html>
